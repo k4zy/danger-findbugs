@@ -6,34 +6,53 @@ module Danger
       expect(Danger::DangerFindbugs.new(nil)).to be_a Danger::Plugin
     end
 
-    #
-    # You should test your custom attributes and methods here
-    #
     describe 'with Dangerfile' do
       before do
         @dangerfile = testing_dangerfile
         @my_plugin = @dangerfile.findbugs
       end
 
-      # Some examples for writing tests
-      # You should replace these with your own.
-
-      it "Warns on a monday" do
-        monday_date = Date.parse("2016-07-11")
-        allow(Date).to receive(:today).and_return monday_date
-
-        @my_plugin.warn_on_mondays
-
-        expect(@dangerfile.status_report[:warnings]).to eq(["Trying to merge code on a Monday"])
+      it "Check default report file path" do
+        expect(@my_plugin.report_file).to eq('build/reports/findbugs_report.xml')
       end
 
-      it "Does nothing on a tuesday" do
-        monday_date = Date.parse("2016-07-12")
-        allow(Date).to receive(:today).and_return monday_date
+      it "Set custom report file path" do
+        custom_report_path = 'custom/findbugs_report.xml'
+        @my_plugin.report_file = custom_report_path
+        expect(@my_plugin.report_file).to eq(custom_report_path)
+      end
 
-        @my_plugin.warn_on_mondays
+      it "Check default gradle module" do
+        expect(@my_plugin.gradle_module).to eq('app')
+      end
 
-        expect(@dangerfile.status_report[:warnings]).to eq([])
+      it "Set custom gradle module" do
+        my_module = 'custom_module'
+        @my_plugin.gradle_module = my_module
+        expect(@my_plugin.gradle_module).to eq(my_module)
+      end
+
+      it "Check default gradle task" do
+        expect(@my_plugin.gradle_task).to eq('findbugs')
+      end
+
+      it "Set custom gradle module" do
+        custom_task = 'findbugsStagingDebug'
+        @my_plugin.gradle_task = custom_task
+        expect(@my_plugin.gradle_task).to eq(custom_task)
+      end
+
+      it "Create bug issues" do
+        custom_report_path = 'spec/fixtures/findbugs_report.xml'
+        @my_plugin.report_file = custom_report_path
+        expect(@my_plugin.bug_issues).not_to be_nil
+      end
+
+      it "Send inline comments" do
+        Danger::DangerFindbugs.any_instance.stub(:target_files).and_return([])
+        custom_report_path = 'spec/fixtures/findbugs_report.xml'
+        @my_plugin.report_file = custom_report_path
+        expect(@my_plugin.send_inline_comment).not_to be_nil
       end
 
     end

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.0.1" sequence="0" timestamp="1494198718192" analysisTimestamp="1494198718220" release="">
+  <Project projectName="">
+    <Jar>/Users/kazukiyoshida/.ghq/github.com/kazy1991/PrefKit/prefkit/build/intermediates/classes</Jar>
+    <SrcDir>/Users/kazukiyoshida/.ghq/github.com/kazy1991/PrefKit/prefkit/src/main/java/com/github/kazy1991/prefkit/annotation/PrefKey.java</SrcDir>
+    <SrcDir>/Users/kazukiyoshida/.ghq/github.com/kazy1991/PrefKit/prefkit/src/main/java/com/github/kazy1991/prefkit/annotation/PrefSchema.java</SrcDir>
+    <SrcDir>/Users/kazukiyoshida/.ghq/github.com/kazy1991/PrefKit/prefkit/src/main/java/com/github/kazy1991/prefkit/PreferenceHelper.java</SrcDir>
+    <SrcDir>/Users/kazukiyoshida/.ghq/github.com/kazy1991/PrefKit/prefkit/src/main/java/com/github/kazy1991/prefkit/PrefKit.java</SrcDir>
+    <SrcDir>/Users/kazukiyoshida/.ghq/github.com/kazy1991/PrefKit/prefkit/src/main/java/com/github/kazy1991/prefkit/ServiceMethod.java</SrcDir>
+  </Project>
+  <BugInstance type="MS_MUTABLE_COLLECTION_PKGPROTECT" priority="3" rank="20" abbrev="MS" category="MALICIOUS_CODE" instanceHash="97aa2fcc6946bb8365f48119cce74dcf" instanceOccurrenceNum="0" instanceOccurrenceMax="0" cweid="218">
+    <ShortMessage>&#12497;&#12483;&#12465;&#12540;&#12472;&#12503;&#12525;&#12486;&#12463;&#12486;&#12483;&#12489;&#12395;&#12377;&#12409;&#12365;&#21487;&#22793;&#12467;&#12524;&#12463;&#12471;&#12519;&#12531;&#12398;&#12501;&#12451;&#12540;&#12523;&#12489;</ShortMessage>
+    <LongMessage>com.github.kazy1991.prefkit.ServiceMethod.SUPPORT_LANG &#12399;&#12289;&#12497;&#12483;&#12465;&#12540;&#12472;&#12503;&#12525;&#12486;&#12463;&#12486;&#12483;&#12489;&#12395;&#12377;&#12409;&#12365;&#21487;&#22793;&#12467;&#12524;&#12463;&#12471;&#12519;&#12531;&#12391;&#12377;&#12290;</LongMessage>
+    <Class classname="com.github.kazy1991.prefkit.ServiceMethod" primary="true">
+      <SourceLine classname="com.github.kazy1991.prefkit.ServiceMethod" start="21" end="79" sourcefile="ServiceMethod.java" sourcepath="com/github/kazy1991/prefkit/ServiceMethod.java">
+        <Message>&#35442;&#24403;&#31623;&#25152; ServiceMethod.java:[lines 21-79]</Message>
+      </SourceLine>
+      <Message>&#12463;&#12521;&#12473; com.github.kazy1991.prefkit.ServiceMethod</Message>
+    </Class>
+    <Field classname="com.github.kazy1991.prefkit.ServiceMethod" name="SUPPORT_LANG" signature="Ljava/util/List;" isStatic="true" primary="true">
+      <SourceLine classname="com.github.kazy1991.prefkit.ServiceMethod" sourcefile="ServiceMethod.java" sourcepath="com/github/kazy1991/prefkit/ServiceMethod.java">
+        <Message>&#35442;&#24403;&#22580;&#25152; ServiceMethod.java</Message>
+      </SourceLine>
+      <Message>&#12501;&#12451;&#12540;&#12523;&#12489; com.github.kazy1991.prefkit.ServiceMethod.SUPPORT_LANG</Message>
+    </Field>
+    <SourceLine classname="com.github.kazy1991.prefkit.ServiceMethod" primary="true" start="21" end="21" startBytecode="19" endBytecode="19" sourcefile="ServiceMethod.java" sourcepath="com/github/kazy1991/prefkit/ServiceMethod.java">
+      <Message>&#35442;&#24403;&#31623;&#25152; ServiceMethod.java:[line 21]</Message>
+    </SourceLine>
+  </BugInstance>
+  <BugCategory category="MALICIOUS_CODE">
+    <Description>Malicious code vulnerability</Description>
+  </BugCategory>
+  <BugPattern type="MS_MUTABLE_COLLECTION_PKGPROTECT" abbrev="MS" category="MALICIOUS_CODE">
+    <ShortDescription>&#12497;&#12483;&#12465;&#12540;&#12472;&#12503;&#12525;&#12486;&#12463;&#12486;&#12483;&#12489;&#12395;&#12377;&#12409;&#12365;&#21487;&#22793;&#12467;&#12524;&#12463;&#12471;&#12519;&#12531;&#12398;&#12501;&#12451;&#12540;&#12523;&#12489;</ShortDescription>
+    <Details><![CDATA[
+
+<p>
+可変コレクションのインスタンスが final static フィールドに割り当てられています。
+したがって、悪意のあるコードや偶然別のパッケージによって変更できます。
+フィールドは脆弱性を避けるためにパッケージプロテクテッドにできます。
+代わりに Collections.unmodifiableSet/List/Map などでこのフィールドをラップしても脆弱性を避けることができます。
+</p>
+
+    ]]></Details>
+  </BugPattern>
+  <BugCode abbrev="MS" cweid="218">
+    <Description>&#21487;&#22793; static &#12501;&#12451;&#12540;&#12523;&#12489;</Description>
+  </BugCode>
+  <Errors errors="0" missingClasses="3">
+    <MissingClass>android.content.Context</MissingClass>
+    <MissingClass>android.content.SharedPreferences</MissingClass>
+    <MissingClass>android.content.SharedPreferences$Editor</MissingClass>
+  </Errors>
+  <FindBugsSummary timestamp="Mon, 8 May 2017 08:11:58 +0900" total_classes="10" referenced_classes="38" total_bugs="1" total_size="129" num_packages="2" java_version="1.8.0_121" vm_version="25.121-b13" cpu_seconds="5.27" clock_seconds="1.65" peak_mbytes="173.22" alloc_mbytes="3641.00" gc_seconds="0.02" priority_3="1">
+    <FileStats path="com/github/kazy1991/prefkit/BuildConfig.java" bugCount="0" size="11"/>
+    <FileStats path="com/github/kazy1991/prefkit/PrefKit.java" bugCount="0" size="19"/>
+    <FileStats path="com/github/kazy1991/prefkit/PreferenceHelper.java" bugCount="0" size="33"/>
+    <FileStats path="com/github/kazy1991/prefkit/R.java" bugCount="0" size="12"/>
+    <FileStats path="com/github/kazy1991/prefkit/ServiceMethod.java" bugCount="1" size="50" bugHash="dca3aa492bded41027195b70d8bbc129"/>
+    <FileStats path="com/github/kazy1991/prefkit/annotation/PrefKey.java" bugCount="0" size="2"/>
+    <FileStats path="com/github/kazy1991/prefkit/annotation/PrefSchema.java" bugCount="0" size="2"/>
+    <PackageStats package="com.github.kazy1991.prefkit" total_bugs="1" total_types="8" total_size="125" priority_3="1">
+      <ClassStats class="com.github.kazy1991.prefkit.BuildConfig" sourceFile="BuildConfig.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.PrefKit" sourceFile="PrefKit.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.PrefKit$1" sourceFile="PrefKit.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.PreferenceHelper" sourceFile="PreferenceHelper.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.R" sourceFile="R.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.R$attr" sourceFile="R.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.R$string" sourceFile="R.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.ServiceMethod" sourceFile="ServiceMethod.java" interface="false" size="50" bugs="1" priority_3="1"/>
+    </PackageStats>
+    <PackageStats package="com.github.kazy1991.prefkit.annotation" total_bugs="0" total_types="2" total_size="4">
+      <ClassStats class="com.github.kazy1991.prefkit.annotation.PrefKey" sourceFile="PrefKey.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.github.kazy1991.prefkit.annotation.PrefSchema" sourceFile="PrefSchema.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="292" invocations="443" avgMicrosecondsPerInvocation="660" maxMicrosecondsPerInvocation="19095" standardDeviationMircosecondsPerInvocation="1726"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="97" invocations="444" avgMicrosecondsPerInvocation="219" maxMicrosecondsPerInvocation="3246" standardDeviationMircosecondsPerInvocation="246"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="78" invocations="38" avgMicrosecondsPerInvocation="2066" maxMicrosecondsPerInvocation="12094" standardDeviationMircosecondsPerInvocation="2921"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="52" invocations="171" avgMicrosecondsPerInvocation="306" maxMicrosecondsPerInvocation="4631" standardDeviationMircosecondsPerInvocation="558"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="51" invocations="405" avgMicrosecondsPerInvocation="126" maxMicrosecondsPerInvocation="1758" standardDeviationMircosecondsPerInvocation="233"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="48" invocations="31" avgMicrosecondsPerInvocation="1559" maxMicrosecondsPerInvocation="42157" standardDeviationMircosecondsPerInvocation="7415"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="48" invocations="38" avgMicrosecondsPerInvocation="1263" maxMicrosecondsPerInvocation="8159" standardDeviationMircosecondsPerInvocation="1852"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="43" invocations="60" avgMicrosecondsPerInvocation="728" maxMicrosecondsPerInvocation="19985" standardDeviationMircosecondsPerInvocation="2649"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="35" invocations="38" avgMicrosecondsPerInvocation="923" maxMicrosecondsPerInvocation="7163" standardDeviationMircosecondsPerInvocation="1591"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="30" invocations="29" avgMicrosecondsPerInvocation="1038" maxMicrosecondsPerInvocation="11218" standardDeviationMircosecondsPerInvocation="2102"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="28" invocations="29" avgMicrosecondsPerInvocation="986" maxMicrosecondsPerInvocation="12611" standardDeviationMircosecondsPerInvocation="2366"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="28" invocations="29" avgMicrosecondsPerInvocation="984" maxMicrosecondsPerInvocation="7784" standardDeviationMircosecondsPerInvocation="1531"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="27" invocations="29" avgMicrosecondsPerInvocation="931" maxMicrosecondsPerInvocation="11175" standardDeviationMircosecondsPerInvocation="2081"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="22" invocations="38" avgMicrosecondsPerInvocation="594" maxMicrosecondsPerInvocation="5363" standardDeviationMircosecondsPerInvocation="1197"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="22" invocations="29" avgMicrosecondsPerInvocation="776" maxMicrosecondsPerInvocation="4901" standardDeviationMircosecondsPerInvocation="1065"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="22" invocations="29" avgMicrosecondsPerInvocation="771" maxMicrosecondsPerInvocation="5447" standardDeviationMircosecondsPerInvocation="1064"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildStringPassthruGraph" totalMilliseconds="22" invocations="38" avgMicrosecondsPerInvocation="585" maxMicrosecondsPerInvocation="8394" standardDeviationMircosecondsPerInvocation="1457"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="22" invocations="38" avgMicrosecondsPerInvocation="582" maxMicrosecondsPerInvocation="7272" standardDeviationMircosecondsPerInvocation="1293"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>

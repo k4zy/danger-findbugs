@@ -3,13 +3,14 @@ PATH
   specs:
     danger-findbugs (0.0.1)
       danger-plugin-api (~> 1.0)
-      pry
+      oga (~> 2.10)
 
 GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    ansi (1.5.0)
     ast (2.3.0)
     claide (1.0.1)
     claide-plugins (0.9.2)
@@ -69,6 +70,9 @@ GEM
       shellany (~> 0.0)
     octokit (4.7.0)
       sawyer (~> 0.8.0, >= 0.5.3)
+    oga (2.10)
+      ast
+      ruby-ll (~> 2.1)
     open4 (1.3.4)
     parser (2.4.0.0)
       ast (~> 2.2)
@@ -103,6 +107,9 @@ GEM
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-ll (2.1.2)
+      ansi
+      ast
     ruby-progressbar (1.8.1)
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)

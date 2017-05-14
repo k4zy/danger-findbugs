@@ -1,80 +1,65 @@
 module Danger
   class DangerFindbugs < Plugin
-    RANK_ERROR_THRESHOLD = 4
+    require 'oga'
+    require_relative './bug_issue'
 
-    attr_accessor :gradle_task
-    attr_accessor :report_file
+    attr_writer :gradle_module
+    attr_writer :gradle_task
+    attr_writer :report_file
 
-    def report_file
-      return @report_file || 'build/reports/findbugs_report.xml'
-    end
-
-    attr_accessor :gradle_module
-
-    def gradle_module
-      return @gradle_module || 'app'
-    end
+    GRADLEW_NOT_FOUND = "Could not find `gradlew` inside current directory"
+    REPORT_FILE_NOT_FOUND = "Findbugs report not found"
 
     def report
-      unless gradlew_exists?
-        fail("Could not find `gradlew` inside current directory")
-        return
-      end
-
-      system "./gradlew #{gradle_task || 'findbugs'}"
-
-      unless File.exists?(report_file)
-        fail("Findbugs report not found at `#{report_file}`. "\
-        "Have you forgot to add `xmlReport true` to your `build.gradle` file?")
-      end
-
-      issues = read_issues_from_report
-      send_inline_comment(issues)
+      return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
+      exec_gradle_task
+      return fail(REPORT_FILE_NOT_FOUND) unless report_file_exist?
+      send_inline_comment
     end
 
-    private
-
-    def make_pathname(path)
-      if path == nil
-        nil
-      elsif path.is_a?(Pathname)
-        path
-      else
-        Pathname.new(path)
-      end
+    def gradle_module
+      @gradle_module ||= 'app'
     end
 
-    def read_issues_from_report
-      file = File.open(report_file)
-
-      require 'oga'
-      report = Oga.parse_xml(file)
-
-      report.xpath("//BugInstance").map do |info|
-        rank = info.attribute("rank").value.to_i
-        source_path = info.xpath("SourceLine/@sourcepath").first.to_s
-        file_path = make_pathname(gradle_module).join("src/main/java", source_path).to_s
-        {
-            description: info.xpath("LongMessage/text()").first.text,
-            file_path: file_path,
-            line: info.xpath("SourceLine/@start").first.to_s.to_i,
-            type: rank > RANK_ERROR_THRESHOLD ? :warning : :error,
-        }
-      end
+    def gradle_task
+      @gradle_task  ||= 'findbugs'
     end
 
-    def send_inline_comment (issues)
-      target_files = (git.modified_files - git.deleted_files) + git.added_files
-      dir = "#{Dir.pwd}/"
-      issues.each do |issue|
-        next unless target_files.include? issue[:file_path]
-        send("fail", issue[:description], file: issue[:file_path], line: issue[:line])
-      end
+    def report_file
+      @report_file ||= 'build/reports/findbugs_report.xml'
+    end
+
+    def target_files
+      @target_files ||= (git.modified_files - git.deleted_files) + git.added_files
+    end
+
+    def exec_gradle_task
+      system "./gradlew #{gradle_task}"
     end
 
     def gradlew_exists?
       `ls gradlew`.strip.empty? == false
     end
 
+    def report_file_exist?
+      File.exists?(report_file)
+    end
+
+    def findbugs_report
+      @findbugs_report ||= Oga.parse_xml(File.open(report_file))
+    end
+
+    def bug_issues
+      @bug_issues ||= findbugs_report.xpath("//BugInstance").map do |buginfo|
+        BugIssue.new(gradle_module, buginfo)
+      end
+    end
+
+    def send_inline_comment
+      bug_issues.each do |issue|
+        next unless target_files.include? issue.absolute_path
+        send(issue.type, issue.description, file: issue.absolute_path, line: issue.line)
+      end
+    end
   end
 end
