@@ -1,6 +1,6 @@
 # danger-findbugs
 
-A description of danger-findbugs.
+This is the "FindBugs" plugin for "Danger".
 
 ## Installation
 
@@ -11,10 +11,9 @@ A description of danger-findbugs.
     Methods and attributes from this plugin are available in
     your `Dangerfile` under the `findbugs` namespace.
 
-## Development
-
-1. Clone this repo
-2. Run `bundle install` to setup dependencies.
-3. Run `bundle exec rake spec` to run the tests.
-4. Use `bundle exec guard` to automatically have tests run as you make changes.
-5. Make your changes.
+```ruby
+findbugs.gradle_module = "app" # defalut: app
+findbugs.gradle_task = "app:findbugs" #defalut: findbugs
+findbugs.report_file = "app/build/reports/findbugs/findbugs.xml" #defalut: build/reports/findbugs_report.xml
+findbugs.report
+```
