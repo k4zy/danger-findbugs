@@ -17,7 +17,6 @@ module Danger
   # @tags android, findbugs
 
   class DangerFindbugs < Plugin
-    require 'oga'
     require_relative './bug_issue'
 
     # Custom gradle module to run.
@@ -96,6 +95,7 @@ module Danger
     # A getter for `gradle_task`, returning "findbugs" if value is nil.
     # @return [Oga::XML::Document]
     def findbugs_report
+      require 'oga'
       @findbugs_report ||= Oga.parse_xml(File.open(report_file))
     end
 
