@@ -1,19 +1,62 @@
-# danger-findbugs
 
-This is the "FindBugs" plugin for "Danger".
 
-## Installation
+### findbugs
 
-    $ gem install danger-findbugs
+Checks on your gradle project's Java source files.
+This is done using [finbugs](http://findbugs.sourceforge.net/)
+Results are passed out as tables in markdown.
 
-## Usage
+<blockquote>Running Findbugs with its basic configuration
+  <pre>
+findbugs.report</pre>
+</blockquote>
 
-    Methods and attributes from this plugin are available in
-    your `Dangerfile` under the `findbugs` namespace.
-
-```ruby
-findbugs.gradle_module = "app" # defalut: app
+<blockquote>Running Findbugs with a specific gradle task or report_file
+  <pre>
 findbugs.gradle_task = "app:findbugs" #defalut: findbugs
-findbugs.report_file = "app/build/reports/findbugs/findbugs.xml" #defalut: build/reports/findbugs_report.xml
-findbugs.report
-```
+findbugs.report_file = "app/build/reports/findbugs/findbugs.xml"
+findbugs.report</pre>
+</blockquote>
+
+
+
+#### Attributes
+
+`gradle_module` - Custom gradle module to run.
+This is useful when your project has different flavors.
+Defaults to "app".
+
+`gradle_task` - Custom gradle task to run.
+This is useful when your project has different flavors.
+Defaults to "findbugs".
+
+`report_file` - Location of report file
+If your findbugs task outputs to a different location, you can specify it here.
+Defaults to "build/reports/findbugs_report.xml".
+
+
+
+
+#### Methods
+
+`report` - Calls findbugs task of your gradle project.
+It fails if `gradlew` cannot be found inside current directory.
+It fails if `report_file` cannot be found inside current directory.
+
+`target_files` - A getter for current updated files
+
+`exec_gradle_task` - Run gradle task
+
+`gradlew_exists?` - Check gradlew file exists in current directory
+
+`report_file_exist?` - Check report_file exists in current directory
+
+`findbugs_report` - A getter for `gradle_task`, returning "findbugs" if value is nil.
+
+`bug_issues` - A getter for `gradle_task`, returning "findbugs" if value is nil.
+
+`send_inline_comment` - Send inline comment with danger's warn or fail method
+
+
+
+
