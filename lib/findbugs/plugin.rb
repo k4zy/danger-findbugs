@@ -74,13 +74,13 @@ module Danger
       @report_file ||= 'build/reports/findbugs_report.xml'
     end
 
+    private
+
     # A getter for current updated files
     # @return [Array[String]]
     def target_files
       @target_files ||= (git.modified_files - git.deleted_files) + git.added_files
     end
-
-    private
 
     # Run gradle task
     # @return [void]
