@@ -43,11 +43,17 @@ module Danger
     # It fails if `report_file` cannot be found inside current directory.
     # @return [void]
     #
-    def report
+
+    def report(inline_mode = true)
       return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
       exec_gradle_task
       return fail(REPORT_FILE_NOT_FOUND) unless report_file_exist?
-      send_inline_comment
+
+      if inline_mode
+        send_inline_comment
+      else
+        # TODO not implemented
+      end
     end
 
     # A getter for `gradle_module`, returning "app" if value is nil.
@@ -73,6 +79,8 @@ module Danger
     def target_files
       @target_files ||= (git.modified_files - git.deleted_files) + git.added_files
     end
+
+    private
 
     # Run gradle task
     # @return [void]
