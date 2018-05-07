@@ -24,8 +24,7 @@ module Danger
     # Defaults to "app".
     # @return [String]
     attr_writer :gradle_module
-    # Custom gradle module to run.
-    # This is useful when your project has different flavors.
+    # Custom multiple gradle module to run.
     # Defaults to "[gradle_module]".
     # @return [Array]
     attr_writer :gradle_modules
