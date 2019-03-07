@@ -29,9 +29,15 @@ findbugs.report</pre>
 This is useful when your project has different flavors.
 Defaults to "app".
 
+`gradle_modules` - Custom multiple gradle module to run.
+Defaults to "[`gradle_module`]".
+
 `gradle_task` - Custom gradle task to run.
 This is useful when your project has different flavors.
 Defaults to "findbugs".
+
+`gradle_project` - Custom gradle project directory.
+Defaults is repository's root directory.
 
 `report_file` - Location of report file
 If your findbugs task outputs to a different location, you can specify it here.
