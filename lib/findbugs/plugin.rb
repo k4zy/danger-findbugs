@@ -42,6 +42,11 @@ module Danger
     # Defaults is repository's root directory.
     # @return [String]
     attr_accessor :gradle_project
+    # Skip gradle task
+    # If you skip gradle task, for example project does not manage gradle.
+    # @return [Bool]
+    attr_writer :skip_gradle_task
+
 
     GRADLEW_NOT_FOUND = "Could not find `gradlew` inside current directory"
     REPORT_FILE_NOT_FOUND = "Findbugs report not found"
@@ -56,6 +61,15 @@ module Danger
       return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
       if gradle_modules.empty?
           execute_reporting(inline_mode)
+      unless skip_gradle_task
+        return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
+        exec_gradle_task
+      end
+      return fail(REPORT_FILE_NOT_FOUND) unless report_file_exist?
+
+      if inline_mode
+        send_inline_comment
+
       else
           gradle_modules.each_with_index { |gradleModule, index|
               task = gradle_task

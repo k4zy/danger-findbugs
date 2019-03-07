@@ -1,7 +1,12 @@
+# danger-findbugs
 
+Danger plugin for findbugs formatted xml file.
 
-### findbugs
+## Installation
 
+    $ gem install danger-findbugs
+
+## Usage
 Checks on your gradle project's Java source files.
 This is done using [finbugs](http://findbugs.sourceforge.net/)
 Results are passed out as tables in markdown.
@@ -17,8 +22,6 @@ findbugs.gradle_task = "app:findbugs" #defalut: findbugs
 findbugs.report_file = "app/build/reports/findbugs/findbugs.xml"
 findbugs.report</pre>
 </blockquote>
-
-
 
 #### Attributes
 
@@ -40,9 +43,6 @@ Defaults is repository's root directory.
 If your findbugs task outputs to a different location, you can specify it here.
 Defaults to "build/reports/findbugs_report.xml".
 
-
-
-
 #### Methods
 
 `report` - Calls findbugs task of your gradle project.
@@ -62,7 +62,3 @@ It fails if `report_file` cannot be found inside current directory.
 `bug_issues` - A getter for `gradle_task`, returning "findbugs" if value is nil.
 
 `send_inline_comment` - Send inline comment with danger's warn or fail method
-
-
-
-
