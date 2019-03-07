@@ -34,6 +34,10 @@ module Danger
     # Defaults to "build/reports/findbugs_report.xml".
     # @return [String]
     attr_writer :report_file
+    # Skip gradle task
+    # If you skip gradle task, for example project does not manage gradle.
+    # @return [Bool]
+    attr_writer :skip_gradle_task
 
     GRADLEW_NOT_FOUND = "Could not find `gradlew` inside current directory"
     REPORT_FILE_NOT_FOUND = "Findbugs report not found"
@@ -45,8 +49,10 @@ module Danger
     #
 
     def report(inline_mode = true)
-      return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
-      exec_gradle_task
+      unless skip_gradle_task
+        return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
+        exec_gradle_task
+      end
       return fail(REPORT_FILE_NOT_FOUND) unless report_file_exist?
 
       if inline_mode
