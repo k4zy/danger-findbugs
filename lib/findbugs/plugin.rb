@@ -61,6 +61,7 @@ module Danger
       return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
       if gradle_modules.empty?
           execute_reporting(inline_mode)
+      end
       unless skip_gradle_task
         return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
         exec_gradle_task
