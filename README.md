@@ -1,4 +1,5 @@
 # danger-findbugs
+[![Gem Version](https://badge.fury.io/rb/danger-findbugs.svg)](https://badge.fury.io/rb/danger-findbugs)
 
 Danger plugin for findbugs formatted xml file.
 
