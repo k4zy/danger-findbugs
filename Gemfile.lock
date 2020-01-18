@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    danger-findbugs (0.0.7)
+    danger-findbugs (0.0.8)
       danger-plugin-api (~> 1.0)
       oga (~> 2.10)
 
