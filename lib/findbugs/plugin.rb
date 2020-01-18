@@ -61,6 +61,7 @@ module Danger
       return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
       if gradle_modules.empty?
           execute_reporting(inline_mode)
+      end
       unless skip_gradle_task
         return fail(GRADLEW_NOT_FOUND) unless gradlew_exists?
         exec_gradle_task
@@ -137,6 +138,12 @@ module Danger
       @target_files ||= (git.modified_files - git.deleted_files) + git.added_files
     end
 
+    # A getter for `skip_gradle_task`, returning false if value is nil.
+    # @return [Bool]
+    def skip_gradle_task
+      @skip_gradle_task ||= false
+    end
+    
     # Run gradle task
     # @return [void]
     def exec_gradle_task
